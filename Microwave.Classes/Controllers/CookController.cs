@@ -27,14 +27,20 @@ namespace Microwave.Classes.Controllers
         public CookController(
             ITimer timer,
             IDisplay display,
-            IPowerTube powerTube)
+            IPowerTube powerTube,
+            IButton timeAddButton,
+            IButton timeSubtractButton)
         {
             myTimer = timer;
             myDisplay = display;
             myPowerTube = powerTube;
+            myTimeAddButton = timeAddButton;
+            myTimeSubtractButton = timeSubtractButton;
 
             timer.Expired += new EventHandler(OnTimerExpired);
             timer.TimerTick += new EventHandler(OnTimerTick);
+            timeSubtractButton.Pressed += new EventHandler(OnTimeSubtractPressed);
+            timeAddButton.Pressed += new EventHandler(OnTimeAddPressed);
         }
 
         public void StartCooking(int power, int time)
