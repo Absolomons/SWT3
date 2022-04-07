@@ -14,6 +14,8 @@ namespace Microwave.App
 
             // Her er også en lille test
 
+            // Vi prøver lige igen
+
             Door door = new Door();
 
             Output output = new Output();
