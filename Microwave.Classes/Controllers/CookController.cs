@@ -27,14 +27,20 @@ namespace Microwave.Classes.Controllers
         public CookController(
             ITimer timer,
             IDisplay display,
-            IPowerTube powerTube)
+            IPowerTube powerTube,
+            IButton timeAddButton,
+            IButton timeSubtractButton)
         {
             myTimer = timer;
             myDisplay = display;
             myPowerTube = powerTube;
+            myTimeAddButton = timeAddButton;
+            myTimeSubtractButton = timeSubtractButton;
 
             timer.Expired += new EventHandler(OnTimerExpired);
             timer.TimerTick += new EventHandler(OnTimerTick);
+            timeSubtractButton.Pressed += new EventHandler(OnTimeSubtractPressed);
+            timeAddButton.Pressed += new EventHandler(OnTimeAddPressed);
         }
 
         public void StartCooking(int power, int time)
@@ -67,6 +73,24 @@ namespace Microwave.Classes.Controllers
             {
                 int remaining = myTimer.TimeRemaining;
                 myDisplay.ShowTime(remaining / 60, remaining % 60);
+            }
+        }
+        public void OnTimeAddPressed(object sender, EventArgs e)
+        {
+           // add to timer
+            time += 10;
+            
+
+        }
+        public void OnTimeSubtractPressed(object sender, EventArgs e)
+        {
+            //subtract time
+            switch (myState)
+            {
+                case States.COOKING:
+                    time -= 10;
+                    myDisplay.ShowTime(time, 0);
+                    break;
             }
         }
     }

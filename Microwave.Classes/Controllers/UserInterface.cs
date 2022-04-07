@@ -32,7 +32,6 @@ namespace Microwave.Classes.Controllers
             powerButton.Pressed += new EventHandler(OnPowerPressed);
             timeButton.Pressed += new EventHandler(OnTimePressed);
             startCancelButton.Pressed += new EventHandler(OnStartCancelPressed);
-
             door.Closed += new EventHandler(OnDoorClosed);
             door.Opened += new EventHandler(OnDoorOpened);
 
@@ -76,6 +75,7 @@ namespace Microwave.Classes.Controllers
                     break;
             }
         }
+        
 
         public void OnStartCancelPressed(object sender, EventArgs e)
         {
