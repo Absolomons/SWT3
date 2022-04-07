@@ -10,7 +10,7 @@ namespace Microwave.Classes.Boundary
 
         private bool IsOn = false;
 
-        public PowerTube(IOutput output, int maxPower)
+        public PowerTube(IOutput output, int maxPower = 700)
         {
             myOutput = output;
             _maxPower = maxPower > 0 && maxPower <= 1000 ? maxPower : 
