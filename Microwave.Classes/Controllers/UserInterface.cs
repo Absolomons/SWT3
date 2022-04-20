@@ -19,6 +19,7 @@ namespace Microwave.Classes.Controllers
 
         private int powerLevel = 50;
         private int time = 1;
+        private int maxPower;
 
         public UserInterface(
             IButton powerButton,
@@ -39,6 +40,8 @@ namespace Microwave.Classes.Controllers
             myCooker = cooker;
             myLight = light;
             myDisplay = display;
+
+            maxPower = 
         }
 
         private void ResetValues()
