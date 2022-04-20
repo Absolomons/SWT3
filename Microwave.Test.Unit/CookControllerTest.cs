@@ -11,20 +11,22 @@ namespace Microwave.Test.Unit
     {
         private CookController uut;
 
-        private IUserInterface ui;
         private ITimer timer;
         private IDisplay display;
         private IPowerTube powerTube;
+        private IButton addButton;
+        private IButton subButton;
 
         [SetUp]
         public void Setup()
         {
-            ui = Substitute.For<IUserInterface>();
             timer = Substitute.For<ITimer>();
             display = Substitute.For<IDisplay>();
             powerTube = Substitute.For<IPowerTube>();
+            addButton = Substitute.For<IButton>();
+            subButton = Substitute.For<IButton>();
 
-            uut = new CookController(timer, display, powerTube, ui);
+            uut = new CookController(timer, display, powerTube, addButton, subButton);
         }
 
         [Test]
