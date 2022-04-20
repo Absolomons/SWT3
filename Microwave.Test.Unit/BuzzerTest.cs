@@ -22,5 +22,14 @@ namespace Microwave.Test.Unit
             BuzzerOutput = Substitute.For<IOutput>();
             uut = new Buzzer(BuzzerOutput);
         }
+
+        [TestCase(1,1000)]
+        [TestCase(2,1000)]
+        [TestCase(3,1000)]
+        public void Buzz_WasCalledCorrectNumberOfTimes_FixedDelay(int numOfBursts, int delay)
+        {
+            uut.Buzz(numOfBursts, delay);
+            BuzzerOutput.Received(numOfBursts).OutputLine("Bzzzzzzzzzzz");
+        }
     }
 }
