@@ -28,7 +28,7 @@ namespace Microwave.Classes.Boundary
 
         public void TurnOn(int power)
         {
-            if (power < 1 || MaxPower < power)
+            if (power < 50 || MaxPower < power)
             {
                 throw new ArgumentOutOfRangeException("power", power, "Must be between 50 and " + MaxPower + " (incl.)");
             }
