@@ -21,6 +21,7 @@ namespace Microwave.Test.Unit
         private ILight light;
 
         private ICookController cooker;
+        private IBuzzer buzzer;
 
         [SetUp]
         public void Setup()
@@ -32,6 +33,7 @@ namespace Microwave.Test.Unit
             light = Substitute.For<ILight>();
             display = Substitute.For<IDisplay>();
             cooker = Substitute.For<ICookController>();
+            buzzer = Substitute.For<IBuzzer>();
 
             // After feature 2 the PowerTubes output is adjustable therefore we must set what the fake returns
             // So that the UI's ctor works as expected. 700 is default output.
@@ -42,7 +44,8 @@ namespace Microwave.Test.Unit
                 door,
                 display,
                 light,
-                cooker);
+                cooker,
+                buzzer);
         }
 
         [Test]
