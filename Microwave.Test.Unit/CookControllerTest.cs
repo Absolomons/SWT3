@@ -63,7 +63,7 @@ namespace Microwave.Test.Unit
 
             timer.Expired += Raise.EventWith(this, EventArgs.Empty);
 
-            powerTube.Received().TurnOff();
+            powerTube.Received(1).TurnOff();
         }
 
 
