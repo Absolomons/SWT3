@@ -14,12 +14,14 @@ namespace Microwave.Classes.Controllers
         private IDisplay myDisplay;
         private IPowerTube myPowerTube;
         private ITimer myTimer;
+        private IButton myTimeAddButton;
+        private IButton myTimeSubtractButton;
 
         public CookController(
             ITimer timer,
             IDisplay display,
             IPowerTube powerTube,
-            IUserInterface ui) : this(timer, display, powerTube)
+            IUserInterface ui) //: this(timer, display, powerTube)
         {
             UI = ui;
         }
@@ -75,10 +77,26 @@ namespace Microwave.Classes.Controllers
                 myDisplay.ShowTime(remaining / 60, remaining % 60);
             }
         }
-
-        public int GetMaxPower()
+        public void OnTimeAddPressed(object sender, EventArgs e)
         {
-            return myPowerTube.MaxPower;
+           // add to timer
+           myTimer.TimeRemaining += 10;
+            
+            
+
+        }
+        public void OnTimeSubtractPressed(object sender, EventArgs e)
+        {
+            //subtract time
+            myTimer.TimeRemaining -= 10;
+
+            //switch (myState)
+            //{
+            //    case States.COOKING:
+            //        myTimer.TimeRemaining -= 10;
+            //        myDisplay.ShowTime(time, 0);
+            //        break;
+            //}
         }
     }
 }
