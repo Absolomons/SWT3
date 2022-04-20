@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Math;
 
 namespace Microwave.Classes.Boundary
 {
@@ -19,6 +20,16 @@ namespace Microwave.Classes.Boundary
 
         public void Buzz(int numOfBursts, int delay)
         {
+            if (numOfBursts <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(numOfBursts), "$Number of bursts must be positive integer");
+            }
+
+            if (delay <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(delay), "$Delay must be positive integer");
+            }
+
             for (int i = 0; i < numOfBursts; i++)
             {
                 BuzzerOutput.OutputLine("Bzzzzzzzzzzz");

@@ -31,5 +31,12 @@ namespace Microwave.Test.Unit
             uut.Buzz(numOfBursts, delay);
             BuzzerOutput.Received(numOfBursts).OutputLine("Bzzzzzzzzzzz");
         }
+
+        [TestCase(-1, 1000)]
+        [TestCase(3, -500)]
+        public void Buzz_ThrowsOutOfRangeException_NegativeInputs(int numOfBursts, int delay)
+        {
+            Assert.Throws<System.ArgumentOutOfRangeException>(() => uut.Buzz(numOfBursts, delay));
+        }
     }
 }
