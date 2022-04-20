@@ -66,15 +66,6 @@ namespace Microwave.Test.Unit
             powerTube.Received().TurnOff();
         }
 
-        [Test]
-        public void Cooking_TimerExpired_UICalled()
-        {
-            uut.StartCooking(50, 60);
-
-            timer.Expired += Raise.EventWith(this, EventArgs.Empty);
-
-            ui.Received().CookingIsDone();
-        }
 
         [Test]
         public void Cooking_Stop_PowerTubeOff()
