@@ -10,10 +10,9 @@ namespace Microwave.Classes.Boundary
 {
     public class Buzzer : IBuzzer
     {
-        private Output BuzzerOutput { get; set; }
+        private IOutput BuzzerOutput;
 
-
-        public Buzzer(Output output)
+        public Buzzer(IOutput output)
         {
             BuzzerOutput = output;
         }
