@@ -33,6 +33,10 @@ namespace Microwave.Test.Unit
             display = Substitute.For<IDisplay>();
             cooker = Substitute.For<ICookController>();
 
+            // After feature 2 the PowerTubes output is adjustable therefore we must set what the fake returns
+            // So that the UI's ctor works as expected. 700 is default output.
+            cooker.GetMaxPower().Returns(700);
+
             uut = new UserInterface(
                 powerButton, timeButton, startCancelButton,
                 door,
