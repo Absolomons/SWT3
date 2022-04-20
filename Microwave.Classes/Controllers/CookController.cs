@@ -74,6 +74,5 @@ namespace Microwave.Classes.Controllers
         {
             return myPowerTube.MaxPower;
         }
-
     }
 }
