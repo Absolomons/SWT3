@@ -62,8 +62,6 @@ namespace Microwave.App
                     timeSubtractButton.Press();
                 }
             }
-
-            
         }
     }
 }
