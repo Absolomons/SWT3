@@ -5,6 +5,9 @@ namespace Microwave.Classes.Controllers
 {
     public class CookController : ICookController
     {
+        // Since there is a 2-way association, this cannot be set until the UI object has been created
+        // It also demonstrates property dependency injection
+        public IUserInterface UI { set; private get; }
 
         private bool isCooking = false;
 
@@ -13,6 +16,15 @@ namespace Microwave.Classes.Controllers
         private ITimer myTimer;
         private IButton myTimeAddButton;
         private IButton myTimeSubtractButton;
+
+        public CookController(
+            ITimer timer,
+            IDisplay display,
+            IPowerTube powerTube,
+            IUserInterface ui) //: this(timer, display, powerTube)
+        {
+            UI = ui;
+        }
 
         public CookController(
             ITimer timer,
@@ -77,6 +89,13 @@ namespace Microwave.Classes.Controllers
             //subtract time
             myTimer.TimeRemaining -= 10;
 
+            //switch (myState)
+            //{
+            //    case States.COOKING:
+            //        myTimer.TimeRemaining -= 10;
+            //        myDisplay.ShowTime(time, 0);
+            //        break;
+            //}
         }
     }
 }
