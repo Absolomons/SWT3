@@ -43,9 +43,8 @@ namespace Microwave.Classes.Controllers
             myCooker = cooker;
             myLight = light;
             myDisplay = display;
-            myBuzzer = buzzer;
-
             maxPower = myCooker.GetMaxPower();
+            myBuzzer = buzzer;
         }
 
         private void ResetValues()
