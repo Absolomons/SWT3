@@ -31,6 +31,7 @@ namespace Microwave.App
 
             UserInterface ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker, buzzer);
 
+
             // Simulate a simple sequence
 
             powerButton.Press();
