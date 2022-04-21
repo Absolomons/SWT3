@@ -11,20 +11,22 @@ namespace Microwave.Test.Unit
     {
         private CookController uut;
 
-        private IUserInterface ui;
         private ITimer timer;
         private IDisplay display;
         private IPowerTube powerTube;
+        private IButton addButton;
+        private IButton subButton;
 
         [SetUp]
         public void Setup()
         {
-            ui = Substitute.For<IUserInterface>();
             timer = Substitute.For<ITimer>();
             display = Substitute.For<IDisplay>();
             powerTube = Substitute.For<IPowerTube>();
+            addButton = Substitute.For<IButton>();
+            subButton = Substitute.For<IButton>();
 
-            uut = new CookController(timer, display, powerTube, ui);
+            uut = new CookController(timer, display, powerTube, addButton, subButton);
         }
 
         [Test]
@@ -61,18 +63,9 @@ namespace Microwave.Test.Unit
 
             timer.Expired += Raise.EventWith(this, EventArgs.Empty);
 
-            powerTube.Received().TurnOff();
+            powerTube.Received(1).TurnOff();
         }
 
-        [Test]
-        public void Cooking_TimerExpired_UICalled()
-        {
-            uut.StartCooking(50, 60);
-
-            timer.Expired += Raise.EventWith(this, EventArgs.Empty);
-
-            ui.Received().CookingIsDone();
-        }
 
         [Test]
         public void Cooking_Stop_PowerTubeOff()
@@ -90,6 +83,32 @@ namespace Microwave.Test.Unit
             powerTube.MaxPower.Returns(maxPower);
 
             Assert.That(uut.GetMaxPower(), Is.EqualTo(maxPower));
+        }
+
+        [Test]
+        public void Cooking_TimerAdded_DisplayCallsCorrectTime()
+        {
+            uut.StartCooking(50, 60);
+
+            timer.TimeRemaining.Returns(105);
+            addButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
+
+            display.Received().ShowTime(1, 55);
+        }
+
+        [Test]
+        public void Cooking_TimerSubtracted_DisplayCallsCorrectTime()
+        {
+            uut.StartCooking(50, 60);
+
+            timer.TimeRemaining.Returns(115);
+            subButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+            timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
+
+
+            display.Received().ShowTime(1, 45);
         }
 
     }
