@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 using Microwave.Classes.Interfaces;
 
 namespace Microwave.Classes.Boundary
@@ -8,17 +9,28 @@ namespace Microwave.Classes.Boundary
         private IOutput myOutput;
 
         private bool IsOn = false;
+        private int _maxPower;
+        public int MaxPower 
+        {
+            get => _maxPower;
+            set =>
+                _maxPower = (value <= 1000 && value >= 50
+                    ? value
+                    : throw new ArgumentOutOfRangeException("maxPower", value, "Must be between 50 and 1000 (incl.)"));
+        }
 
-        public PowerTube(IOutput output)
+
+        public PowerTube(IOutput output, int maxPower = 700)
         {
             myOutput = output;
+            MaxPower = maxPower;
         }
 
         public void TurnOn(int power)
         {
-            if (power < 1 || 700 < power)
+            if (power < 50 || MaxPower < power)
             {
-                throw new ArgumentOutOfRangeException("power", power, "Must be between 1 and 700 (incl.)");
+                throw new ArgumentOutOfRangeException("power", power, "Must be between 50 and " + MaxPower + " (incl.)");
             }
 
             if (IsOn)
