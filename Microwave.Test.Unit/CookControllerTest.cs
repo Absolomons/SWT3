@@ -75,6 +75,28 @@ namespace Microwave.Test.Unit
 
             powerTube.Received().TurnOff();
         }
+        [Test]
+        public void Cooking_TimerAddPressed_CorrectTime()
+        {
+            uut.StartCooking(50, 60);
+
+            timer.TimeRemaining.Returns(105);
+            addButton.Press();
+            timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
+
+            display.Received().ShowTime(1, 55);
+        }
+        [Test]
+        public void Cooking_TimerSubButton_CorrectTime()
+        {
+            uut.StartCooking(50, 60);
+
+            timer.TimeRemaining.Returns(115);
+            subButton.Press();
+            timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
+
+            display.Received().ShowTime(1, 45);
+        }
 
         [TestCase(50)]
         [TestCase(1000)]
