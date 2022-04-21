@@ -85,5 +85,30 @@ namespace Microwave.Test.Unit
             Assert.That(uut.GetMaxPower(), Is.EqualTo(maxPower));
         }
 
+        [Test]
+        public void Cooking_TimerAdded_DisplayCallsCorrectTime()
+        {
+            uut.StartCooking(50, 60);
+
+            timer.TimeRemaining.Returns(105);
+            addButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+            timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
+
+            display.Received().ShowTime(1, 55);
+        }
+
+        [Test]
+        public void Cooking_TimerSubtracted_DisplayCallsCorrectTime()
+        {
+            uut.StartCooking(50, 60);
+
+            timer.TimeRemaining.Returns(115);
+            timer.TimerTick += Raise.EventWith(this, EventArgs.Empty);
+            subButton.Pressed += Raise.EventWith(this, EventArgs.Empty);
+
+
+            display.Received().ShowTime(1, 45);
+        }
+
     }
 }
