@@ -85,5 +85,12 @@ namespace Microwave.Classes.Controllers
             //        break;
             //}
         }
+
+        public int GetMaxPower()
+        {
+            return myPowerTube.MaxPower;
+        }
+
+
     }
 }
