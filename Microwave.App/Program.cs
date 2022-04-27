@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading;
 using Microwave.Classes.Boundary;
 using Microwave.Classes.Controllers;
+using Timer = Microwave.Classes.Boundary.Timer;
 
 namespace Microwave.App
 {
@@ -18,7 +20,25 @@ namespace Microwave.App
 
             Display display = new Display(output);
 
-            PowerTube powerTube = new PowerTube(output);
+            // let user choose power
+            int maxPower = 0;
+            do
+            {
+                Console.WriteLine("Type max power of microwave: ");
+                string maxPowerInput = Console.ReadLine();
+                bool success = Int32.TryParse(maxPowerInput, out maxPower);
+                if (!success)
+                {
+                    Console.WriteLine("Failed to parse input");
+                }
+                else
+                {
+                    if (!(50 <= maxPower && maxPower <= 1000))
+                        Console.WriteLine("Invalid maxpower inputted. Should be between 50 and 1000 inclusive");
+                }
+            } while (!(50 <= maxPower && maxPower <= 1000));
+
+            PowerTube powerTube = new PowerTube(output, maxPower);
 
             Light light = new Light(output);
 
@@ -40,6 +60,9 @@ namespace Microwave.App
             timeButton.Press();
 
             startCancelButton.Press();
+
+            Thread.Sleep(10000);
+            timeButton.Press();
 
             // The simple sequence should now run
 
