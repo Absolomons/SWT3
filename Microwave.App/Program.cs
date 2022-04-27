@@ -51,6 +51,8 @@ namespace Microwave.App
 
             UserInterface ui = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cooker, buzzer);
 
+            cooker.SetUI(ui);
+
 
             // Simulate a simple sequence
 
@@ -59,9 +61,6 @@ namespace Microwave.App
             timeButton.Press();
 
             startCancelButton.Press();
-
-            Thread.Sleep(10000);
-            timeButton.Press();
 
             // The simple sequence should now run
 

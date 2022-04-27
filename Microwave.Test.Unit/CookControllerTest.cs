@@ -16,6 +16,7 @@ namespace Microwave.Test.Unit
         private IPowerTube powerTube;
         private IButton addButton;
         private IButton subButton;
+        private IUserInterface ui;
 
         [SetUp]
         public void Setup()
@@ -25,8 +26,10 @@ namespace Microwave.Test.Unit
             powerTube = Substitute.For<IPowerTube>();
             addButton = Substitute.For<IButton>();
             subButton = Substitute.For<IButton>();
+            ui = Substitute.For<IUserInterface>();
 
             uut = new CookController(timer, display, powerTube, addButton, subButton);
+            uut.SetUI(ui);
         }
 
         [Test]

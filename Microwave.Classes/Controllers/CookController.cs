@@ -13,6 +13,7 @@ namespace Microwave.Classes.Controllers
         private ITimer myTimer;
         private IButton myTimeAddButton;
         private IButton myTimeSubtractButton;
+        private IUserInterface myUserInterface;
 
         public CookController(
             ITimer timer,
@@ -53,6 +54,7 @@ namespace Microwave.Classes.Controllers
             {
                 isCooking = false;
                 myPowerTube.TurnOff();
+                myUserInterface.CookingIsDone();
             }
         }
 
@@ -91,6 +93,10 @@ namespace Microwave.Classes.Controllers
             return myPowerTube.MaxPower;
         }
 
+        public void SetUI(IUserInterface ui)
+        {
+            myUserInterface = ui;
+        }
 
     }
 }
